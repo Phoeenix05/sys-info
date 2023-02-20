@@ -32,6 +32,23 @@ fn main() {
 
     tauri::Builder::default()
         // .menu(menu)
+        .on_window_event(|event| match event.event() {
+            // tauri::WindowEvent::Resized(_) => todo!(),
+            // tauri::WindowEvent::Moved(_) => todo!(),
+            // tauri::WindowEvent::CloseRequested { api, .. } => {
+            //     event.window().hide().unwrap();
+            //     api.prevent_close();
+            // },
+            // tauri::WindowEvent::Destroyed => todo!(),
+            // tauri::WindowEvent::Focused(_) => {
+            //     event.window().show().unwrap();
+            // },
+            // tauri::WindowEvent::ScaleFactorChanged { scale_factor, new_inner_size, .. } => todo!(),
+            // tauri::WindowEvent::FileDrop(_) => todo!(),
+            // tauri::WindowEvent::ThemeChanged(_) => todo!(),
+            _ => {},
+
+        })
         .system_tray(tray)
         .invoke_handler(tauri::generate_handler![greet])
         .run(tauri::generate_context!())
