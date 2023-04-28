@@ -3,7 +3,7 @@
     windows_subsystem = "windows"
 )]
 
-use tauri::{CustomMenuItem, SystemTrayMenu, SystemTrayMenuItem, SystemTray};
+use tauri::{CustomMenuItem, Manager, SystemTray, SystemTrayMenu, SystemTrayMenuItem};
 
 // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
 #[tauri::command]
@@ -31,6 +31,11 @@ fn main() {
     let tray = SystemTray::new().with_menu(tray_menu);
 
     tauri::Builder::default()
+        .setup(|_app| {
+            // let mut window = app.get_window("sys-info").unwrap();
+
+            Ok(())
+        })
         // .menu(menu)
         .on_window_event(|event| match event.event() {
             // tauri::WindowEvent::Resized(_) => todo!(),
@@ -46,8 +51,7 @@ fn main() {
             // tauri::WindowEvent::ScaleFactorChanged { scale_factor, new_inner_size, .. } => todo!(),
             // tauri::WindowEvent::FileDrop(_) => todo!(),
             // tauri::WindowEvent::ThemeChanged(_) => todo!(),
-            _ => {},
-
+            _ => {}
         })
         .system_tray(tray)
         .invoke_handler(tauri::generate_handler![greet])
